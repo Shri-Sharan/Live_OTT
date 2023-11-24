@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="loginstyles.css">
+    <title>Login & Signup</title>
+</head>
+
+<body class="login-signup-page">
+    <header>
+        <nav>
+            <div class="logo">
+               <a href="index.html"><img src="./images/ottlogo.jpeg" alt="OTT Logo"></a>
+            </div>
+            <a href="index.html" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#000'">
+                <h1 align="left">Live OTT</h1>
+              </a>
+              
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="booking.html">Tickets</a></li>
+                <li><a href="login.html">My Account</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+    <div class="container">
+        <div class="login-signup-form">
+            <div class="form-header">
+                <h2>Welcome to Live OTT</h2>
+                <p>Login or Sign Up to continue</p>
+            </div>
+            
+            <div class="tab-content">
+                <div id="login">
+                    <h3>Login to your account</h3><br>
+                    <form action="login.php" method="post">
+                        <div class="form-group">
+                            <input type="email" name="email" id="login-email" required>
+                            <label for="login-email">Email</label>
+                        </div><br>
+                        <div class="form-group">
+                            <input type="password" name="password" id="login-password" required>
+                            <label for="login-password">Password</label>
+                        </div>
+                        <button class="btn" onclick="alert('Welcome Back!')">Login</button><br>
+                    </form>
+                </div><br>
+                <div id="signup">
+                    <h3>Create an account</h3><br>
+                    <form method="post">
+                        <div class="form-group">
+                            <input type="text" name="fullname" id="signup-fullname" required>
+                            <label for="signup-fullname">Full Name</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="email" name="email" id="signup-email" required>
+                            <label for="signup-email">Email</label>
+                        </div>
+                        <div class="form-group">
+                            <input type="password" name="password" id="signup-password" required>
+                            <label for="signup-password">Password</label>
+                        </div>
+                        <button class="btn" onclick="alert(document.getElementById('signup-fullname').value +' your welcome onboard!')">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+<footer>
+    <p>&copy; 2023 Live OTT Platform<br>
+    Terms & Conditions</p>
+</footer>
+</body>
+</html>

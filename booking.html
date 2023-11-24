@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="styles.css">
+        <style>
+            body {
+                margin: 0;
+            }
+    
+            footer {
+                position: absolute;
+                bottom: 0;
+                width: 100%;
+                background-color: #333;
+                color: #fff;
+                text-align: center;
+                padding: 10px 0;
+            }
+        </style>
+        <title>Live OTT</title>
+    </head>
+
+<body class="booking-page">
+    <header>
+        <nav>
+            <div class="logo">
+               <a href="index.html"><img src="./images/ottlogo.jpeg" alt="OTT Logo"></a>
+            </div>
+            <a href="index.html" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#000'">
+                <h1 align="left">Live OTT</h1>
+              </a>
+              
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="booking.html">Tickets</a></li>
+                <li><a href="login.html">My Account</a></li>
+            </ul>
+        </nav>
+    </header>
+     
+<br>
+
+   <div class="booking-container">
+    <form class="booking-form">
+
+           <h2>Book Tickets</h2>
+
+           <div class="form-group">
+               <label for="movie">Select Movie:</label>
+               <select name="movie" id="movie" class="styled-select">
+                   <option value="Jailer">Jailer</option>
+                   <option value="Salaar">Salaar</option>
+                   <option value="Rajakumara">Rajakumara</option>
+                   <option value="Looper">Looper</option>
+                   <option value="Ghost">Ghost</option>
+                   <option value="indi">Indiana Jones DOD</option>
+                   <option value="taken">Taken3</option>
+                   <option value="Avengers">Avengers</option>
+                   <option value="Pushpa">Pushpa 2</option>
+                   <option value="Ayalaan">Ayalaan</option>
+                   <option value="Aachar & Co.">Aachar & Co.</option>
+                   
+                   
+                   <!-- Add more movie options here -->
+               </select>
+               
+           </div>
+
+           <div class="form-group">
+               <label for="timing">Select Show Timing:</label>
+               <select name="timing" id="timing" class="styled-select">
+                   <option value="9 am show">9 am show</option>
+                   <option value="1 pm show">1 pm show</option>
+                   <option value="6 pm show">6 pm show</option>
+                   <option value="9 pm show">9 pm show</option>
+                   <!-- Add more timing options here -->
+               </select>
+           </div>
+
+           <div class="form-group">
+               <label for="name">Name:</label>
+               <input type="text" name="name" id="name" required>
+           </div>
+
+           <div class="form-group">
+               <label for="email">Email:</label>
+               <input type="email" name="email" id="email" required>
+           </div>
+
+           <div class="form-group">
+               <label for="phone">Phone Number:</label>
+               <input type="tel" name="phone" id="phone" required>
+           </div>
+
+           <div class="form-group">
+               <label for="payment">Select Payment Type:</label>
+               <select name="payment" id="payment" class="styled-select">
+                   <option value="credit">Credit Card</option>
+                   <option value="debit">Debit Card</option>
+                   <option value="upi">UPI</option>
+                   <option value="Ezpaylater">EzPay Later</option>
+                   <!-- Add more payment options here -->
+               </select>
+           </div>
+
+           <!-- Submit button -->
+           <button type="submit" class="book-button" onclick="alert(document.getElementById('movie').value + ' movie has been booked for'
+           + ' '+document.getElementById('name').value + ' ' +'sucessfully. Happy Movie Time!')">Book Tickets</button>
+
+       </form>
+      
+   </div>
+   
+
+   <footer>
+    <p>&copy; 2023 Live OTT Platform<br>
+    Terms & Conditions</p>
+</footer>
+
+
+
+
+
+</body>
+
+</html>
