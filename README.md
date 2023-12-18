@@ -68,3 +68,5 @@ CREATE TABLE users (
 Your database is setup
 
 By placing all the files under the correct htdocs directory and starting apache and mysql server your good to go.
+
+_(Give your own mp4 file to play in play.html <source src="kantara.mp4" type="video/mp4">)_
