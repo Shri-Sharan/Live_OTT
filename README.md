@@ -1,5 +1,6 @@
 # Live_OTT
 Unique OTT Platform built for college project. Not for commercial purposes.
+Have a Look into it at **https://shri-sharan.github.io/Live_OTT/**
 
 This was for a college project built entirely from scratch. 
 
