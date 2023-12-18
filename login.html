@@ -21,6 +21,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="movies.html">Movies</a></li>
                 <li><a href="booking.html">Tickets</a></li>
+                <li><a href="watch.html">Watch</a></li>
                 <li><a href="login.html">My Account</a></li>
             </ul>
         </nav>
@@ -36,7 +37,7 @@
             <div class="tab-content">
                 <div id="login">
                     <h3>Login to your account</h3><br>
-                    <form action="login.php" method="post">
+                    <form id="login-form" action="./php/login/login.php" method="post" onsubmit="submitLoginForm(event)">
                         <div class="form-group">
                             <input type="email" name="email" id="login-email" required>
                             <label for="login-email">Email</label>
@@ -47,10 +48,11 @@
                         </div>
                         <button class="btn" onclick="alert('Welcome Back!')">Login</button><br>
                     </form>
+                    <div id="login-message"></div>
                 </div><br>
                 <div id="signup">
                     <h3>Create an account</h3><br>
-                    <form method="post">
+                    <form id="signup-form" action="./php/login/signup.php" method="post" onsubmit="submitSignupForm(event)">
                         <div class="form-group">
                             <input type="text" name="fullname" id="signup-fullname" required>
                             <label for="signup-fullname">Full Name</label>
@@ -64,14 +66,65 @@
                             <label for="signup-password">Password</label>
                         </div>
                         <button class="btn" onclick="alert(document.getElementById('signup-fullname').value +' your welcome onboard!')">Sign Up</button>
+                        <div id="signup-message"></div>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </main>
-<footer>
-    <p>&copy; 2023 Live OTT Platform<br>
+<script>
+    <!-- Add the following code in your <head> section -->
+
+    document.addEventListener('DOMContentLoaded', function () {
+        const messageContainer = document.getElementById('login-message');
+        const signupMessageContainer = document.getElementById('signup-message');
+
+        window.submitLoginForm = function (event) {
+            event.preventDefault();
+
+            const loginForm = document.getElementById('login-form');
+            const formData = new FormData(loginForm);
+
+            fetch('./php/login/login.php', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(message => {
+                    messageContainer.innerHTML = message;
+                    loginForm.reset()
+                })
+                .catch(error => console.error('Error:', error));
+        };
+
+        window.submitSignupForm = function (event) {
+            event.preventDefault();
+
+            const signupForm = document.getElementById('signup-form');
+            const formData = new FormData(signupForm);
+
+            fetch('./php/login/signup.php', {
+                method: 'POST',
+                body: formData,
+            })
+                .then(response => response.text())
+                .then(message => {
+                    signupMessageContainer.innerHTML = message;
+
+                    // You can optionally clear the signup form fields here
+                    signupForm.reset();
+                })
+                .catch(error => console.error('Error:', error));
+        };
+    });
+</script>
+
+
+
+
+    <footer>
+    <p>&copy; 2023 Live OTT Platform <br></br>
     Terms & Conditions</p>
 </footer>
 </body>

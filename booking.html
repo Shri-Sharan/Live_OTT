@@ -9,15 +9,7 @@
                 margin: 0;
             }
     
-            footer {
-                position: absolute;
-                bottom: 0;
-                width: 100%;
-                background-color: #333;
-                color: #fff;
-                text-align: center;
-                padding: 10px 0;
-            }
+           
         </style>
         <title>Live OTT</title>
     </head>
@@ -36,6 +28,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="movies.html">Movies</a></li>
                 <li><a href="booking.html">Tickets</a></li>
+                <li><a href="watch.html">Watch</a></li>
                 <li><a href="login.html">My Account</a></li>
             </ul>
         </nav>
@@ -44,7 +37,7 @@
 <br>
 
    <div class="booking-container">
-    <form class="booking-form">
+    <form class="booking-form" method="post" action="./php/book/process_booking.php">
 
            <h2>Book Tickets</h2>
 
@@ -54,6 +47,7 @@
                    <option value="Jailer">Jailer</option>
                    <option value="Salaar">Salaar</option>
                    <option value="Rajakumara">Rajakumara</option>
+                   <option value="Kantara2">Kantara 2</option>
                    <option value="Looper">Looper</option>
                    <option value="Ghost">Ghost</option>
                    <option value="indi">Indiana Jones DOD</option>
@@ -94,7 +88,7 @@
                <label for="phone">Phone Number:</label>
                <input type="tel" name="phone" id="phone" required>
            </div>
-
+           <input type="hidden" name="booking_id" id="booking_id" value="">
            <div class="form-group">
                <label for="payment">Select Payment Type:</label>
                <select name="payment" id="payment" class="styled-select">
@@ -105,24 +99,64 @@
                    <!-- Add more payment options here -->
                </select>
            </div>
+           <div id="success-message" style="display: none;"></div>
+
 
            <!-- Submit button -->
-           <button type="submit" class="book-button" onclick="alert(document.getElementById('movie').value + ' movie has been booked for'
-           + ' '+document.getElementById('name').value + ' ' +'sucessfully. Happy Movie Time!')">Book Tickets</button>
+           <button type="button" class="book-button" onclick="submitForm()">Book Tickets</button>
 
        </form>
       
    </div>
-   
+    <script>
+    function generateBookingId() {
+        var movie = document.getElementById('movie').value;
+        var name = document.getElementById('name').value;
+        var randomId = Math.floor(Math.random() * 1000000) + 1;
+        var bookingId = movie.substring(0, 3) + name.substring(0, 3) + randomId;
+
+        // Set the generated booking ID in the hidden input field
+        document.getElementById('booking_id').value = bookingId;
+
+        // Display the booking ID in the alert
+        alert(movie + ' movie has been booked for ' + name + ' successfully. Your Booking ID is: ' + bookingId);
+    }
+
+    function submitForm() {
+        // Call generateBookingId() before submitting the form to set the booking ID
+        generateBookingId();
+
+        // Your form data
+        var formData = new FormData(document.querySelector('.booking-form'));
+
+        // Send form data using AJAX
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', './php/book/process_booking.php', true);
+
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                // Display success message
+                document.getElementById('success-message').innerHTML = 'Booking successful! Your Booking ID is: ' + document.getElementById('booking_id').value;
+                document.getElementById('success-message').style.display = 'block';
+            } else {
+                // Display error message if the request fails
+                document.getElementById('success-message').innerHTML = 'Error processing the booking.';
+                document.getElementById('success-message').style.display = 'block';
+            }
+        };
+
+        xhr.send(formData);
+    }
+</script>
+
+
+
+
 
    <footer>
     <p>&copy; 2023 Live OTT Platform<br>
     Terms & Conditions</p>
 </footer>
-
-
-
-
 
 </body>
 

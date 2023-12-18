@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Live OTT</title>
+    <style>
+         #video-container {
+        position: relative;
+        width: 100%;
+        padding-top: 56.25%; /* 16:9 aspect ratio */
+    }
+
+    #video-player {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+    }
+
+    .controls {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.7);
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px;
+        font-size: 14px;
+    }
+
+    .controls button {
+        background-color: transparent;
+        border: none;
+        color: #fff;
+        cursor: pointer;
+        font-size: 16px;
+        margin-right: 10px;
+    }
+
+    .controls button:hover {
+        color: #007bff;
+    }
+
+    #progress {
+        flex: 1;
+        margin: 0 10px;
+    }
+
+    #volume-bar {
+        width: 60px;
+    }
+    </style>
+</head>
+
+<body style='background-color:rgb(0, 0, 0)'>
+    <header>
+        <nav>
+            <div class="logo">
+               <a href="index.html"><img src="./images/ottlogo.jpeg" alt="OTT Logo"></a>
+            </div>
+            <a href="index.html" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#000'">
+                <h1 align="left">Live OTT</h1>
+              </a>
+              
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="booking.html">Tickets</a></li>
+                <li><a href="watch.html">Watch</a></li>
+                <li><a href="login.html">My Account</a></li>
+            </ul>
+        </nav>
+    </header><br>
+    
+        <h2 style="color: #fff;margin:2px;">Kantara A Legend Chapter-1</h2>
+        <div id="video-container">
+            <video id="video-player" controls>
+                <source src="kantara2hd.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <div class="controls">
+                <button id="play-pause">Play</button>
+                <span id="current-time">0:00</span>
+                <input type="range" id="progress" value="0">
+                <span id="duration">0:00</span>
+                <button id="volume">Mute</button>
+                <input type="range" id="volume-bar" value="100">
+                <button id="fullscreen">Fullscreen</button>
+            </div>
+        </div>
+    <footer>
+        <p>&copy; 2023 Live OTT Platform<br>
+        Terms & Conditions</p>
+    </footer>
+    <script>
+        var video = document.getElementById("video-player");
+        var playPauseButton = document.getElementById("play-pause");
+        var currentTimeDisplay = document.getElementById("current-time");
+        var progress = document.getElementById("progress");
+        var durationDisplay = document.getElementById("duration");
+        var volumeButton = document.getElementById("volume");
+        var volumeBar = document.getElementById("volume-bar");
+        var fullscreenButton = document.getElementById("fullscreen");
+
+        playPauseButton.addEventListener("click", function() {
+            if (video.paused || video.ended) {
+                video.play();
+                playPauseButton.textContent = "Pause";
+            } else {
+                video.pause();
+                playPauseButton.textContent = "Play";
+            }
+        });
+
+        video.addEventListener("timeupdate", function() {
+            var minutes = Math.floor(video.currentTime / 60);
+            var seconds = Math.floor(video.currentTime % 60);
+            currentTimeDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+
+            var value = (video.currentTime / video.duration) * 100;
+            progress.value = value;
+        });
+
+        progress.addEventListener("input", function() {
+            var value = progress.value;
+            var time = (value / 100) * video.duration;
+            video.currentTime = time;
+        });
+
+        video.addEventListener("loadedmetadata", function() {
+            var minutes = Math.floor(video.duration / 60);
+            var seconds = Math.floor(video.duration % 60);
+            durationDisplay.textContent = minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+        });
+
+        volumeButton.addEventListener("click", function() {
+            if (video.muted) {
+                video.muted = false;
+                volumeButton.textContent = "Mute";
+                volumeBar.value = video.volume * 100;
+            } else {
+                video.muted = true;
+                volumeButton.textContent = "Unmute";
+                volumeBar.value = 0;
+            }
+        });
+
+        volumeBar.addEventListener("input", function() {
+            video.volume = volumeBar.value / 100;
+            video.muted = false;
+            volumeButton.textContent = "Mute";
+        });
+
+        fullscreenButton.addEventListener("click", function() {
+            if (video.requestFullscreen) {
+                video.requestFullscreen();
+            } else if (video.mozRequestFullScreen) {
+                video.mozRequestFullScreen();
+            } else if (video.webkitRequestFullscreen) {
+                video.webkitRequestFullscreen();
+            }
+        });
+    </script>
+</body>
+</html>

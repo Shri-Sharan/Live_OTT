@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+            margin: 0;
+            padding: 0;
+        }
+
+        footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        /* Add styles for the watch page */
+        .watch-section {
+            background-color: #f1f1f1;
+            text-align: center;
+            padding: 50px 0;
+        }
+
+        .watch-container {
+            background-color: #fff;
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .watch-form {
+            text-align: left;
+        }
+
+        .watch-form label {
+            display: block;
+            font-weight: bold;
+            color: #555;
+            margin-bottom: 5px;
+        }
+
+        .watch-form input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .watch-button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .watch-button:hover {
+            background-color: #0056b3;
+        }
+
+        .error-message {
+            color: #ff0000;
+            margin-top: 10px;
+        }
+
+        /* Add styles for the success message */
+        .success-message {
+            color: #008000;
+            margin-top: 10px;
+        }
+
+    </style>
+    
+    <title>Watch Movie</title>
+</head>
+<body>
+    <header>
+        <nav>
+            <div class="logo">
+               <a href="index.html"><img src="./images/ottlogo.jpeg" alt="OTT Logo"></a>
+            </div>
+            <a href="index.html" style="text-decoration: none; color: #ffffff;" onmouseover="this.style.color='#007bff'" onmouseout="this.style.color='#000'">
+                <h1 align="left">Live OTT</h1>
+              </a>
+              
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="movies.html">Movies</a></li>
+                <li><a href="booking.html">Tickets</a></li>
+                <li><a href="watch.html">Watch</a></li>
+                <li><a href="login.html">My Account</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="watch-section">
+        <div class="watch-container">
+            <h2>Watch Movie</h2>
+
+            <p>Enter your booking ID to start watching:</p><br>
+            <form id="watch-form" class="watch-form" method="post">
+                <div class="form-group">
+                    <label for="booking-id">Booking ID:</label>
+                    <input type="text" id="booking-id" name="booking-id" required>
+                </div>
+                <button type="submit" class="watch-button" onclick="startWatching(event)">Start Watching</button>
+
+            </form>
+            <div class="error-message" id="error-message"></div>
+        </div>
+    </section>
+    
+    <footer>
+        <p>&copy; 2023 Live OTT Platform<br>
+        Terms & Conditions</p>
+    </footer>   
+   
+<!-- Move the script outside the DOMContentLoaded event -->
+<script>
+    function startWatching(event) {
+        // Prevent the default form submission
+        event.preventDefault();
+    
+        // Collect the booking ID from the form
+        var bookingId = document.getElementById("booking-id").value;
+    
+        // Make an AJAX request to check_booking.php
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", "./php/book/check_booking.php", true);
+        xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState == 4) {
+                // Parse JSON response
+                var response = JSON.parse(xhr.responseText);
+    
+                // Handle the response
+                if (response.success) {
+                    // Booking ID exists, redirect to booking.html
+                    window.location.href = "play.html";
+                } else {
+                    // Booking ID does not exist, display an error message
+                    document.getElementById("error-message").innerHTML = response.message;
+                }
+            }
+        };
+    
+        // Send the request with the booking ID
+        xhr.send("booking-id=" + bookingId);
+    }
+    </script>
+
+        
+</body>
+</html>
